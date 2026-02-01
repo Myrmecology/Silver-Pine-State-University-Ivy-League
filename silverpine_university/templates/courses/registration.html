@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Course Registration - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/courses.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Course Registration</h1>
+        <p class="page-subtitle">Spring 2026 Semester</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="registration-container">
+        <!-- Shopping Cart -->
+        <div class="cart-section glassmorphism">
+            <h2 class="cart-title">Registration Cart</h2>
+            <div class="cart-content">
+                {% if cart %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="enroll">
+                    
+                    <div class="cart-items">
+                        {% for section_id in cart %}
+                        {% for section in sections %}
+                        {% if section.section_id == section_id %}
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <h4>{{ section.course.course_code }}</h4>
+                                <p>{{ section.course.title }}</p>
+                                <p class="cart-item-details">{{ section.get_schedule_display }} | {{ section.building }} {{ section.room_number }}</p>
+                            </div>
+                            <form method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="remove_from_cart">
+                                <input type="hidden" name="section_id" value="{{ section.section_id }}">
+                                <button type="submit" class="btn-remove">Remove</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit" class="btn-enroll">Enroll in Selected Courses</button>
+                </form>
+                {% else %}
+                <p class="cart-empty">Your cart is empty. Add courses below to register.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Available Sections -->
+        <div class="sections-content">
+            <h2 class="sections-title">Available Course Sections</h2>
+            
+            <div class="sections-grid">
+                {% for section in sections %}
+                <div class="section-card glassmorphism {% if section.section_id in enrolled_sections %}enrolled{% endif %} {% if section.is_full %}full{% endif %}">
+                    <div class="section-header">
+                        <div>
+                            <h3 class="section-code">{{ section.course.course_code }}</h3>
+                            <p class="section-title">{{ section.course.title }}</p>
+                        </div>
+                        <span class="section-credits">{{ section.course.credits }} Credits</span>
+                    </div>
+                    
+                    <div class="section-details">
+                        <div class="section-info-row">
+                            <span class="info-label">Professor:</span>
+                            <span class="info-value">{{ section.professor.get_full_name }}</span>
+                        </div>
+                        <div class="section-info-row">
+                            <span class="info-label">Schedule:</span>
+                            <span class="info-value">{{ section.get_schedule_display }}</span>
+                        </div>
+                        <div class="section-info-row">
+                            <span class="info-label">Location:</span>
+                            <span class="info-value">{{ section.building }} {{ section.room_number }}</span>
+                        </div>
+                        <div class="section-info-row">
+                            <span class="info-label">Seats Available:</span>
+                            <span class="info-value {% if section.seats_available <= 5 %}low-seats{% endif %}">
+                                {{ section.seats_available }} / {{ section.max_capacity }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="section-footer">
+                        {% if section.section_id in enrolled_sections %}
+                        <span class="status-badge enrolled-badge">Already Enrolled</span>
+                        {% elif section.is_full %}
+                        <span class="status-badge full-badge">Class Full</span>
+                        {% else %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="add_to_cart">
+                            <input type="hidden" name="section_id" value="{{ section.section_id }}">
+                            <button type="submit" class="btn-add-cart">Add to Cart</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <p class="no-sections">No sections available for registration.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/registration.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Past Classes - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/grades.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Past Classes</h1>
+        <p class="page-subtitle">Completed Course History</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="past-classes-container">
+        {% if past_enrollments %}
+        <div class="classes-grid">
+            {% for enrollment in past_enrollments %}
+            <div class="class-card glassmorphism">
+                <div class="class-header">
+                    <div class="class-code-section">
+                        <h3 class="class-code">{{ enrollment.course_section.course.course_code }}</h3>
+                        <span class="class-semester">{{ enrollment.semester }}</span>
+                    </div>
+                    <span class="class-grade grade-badge grade-{{ enrollment.grade }}">{{ enrollment.grade }}</span>
+                </div>
+                
+                <h4 class="class-title">{{ enrollment.course_section.course.title }}</h4>
+                
+                <div class="class-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Professor:</span>
+                        <span class="detail-value">{{ enrollment.course_section.professor.get_full_name }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Credits:</span>
+                        <span class="detail-value">{{ enrollment.course_section.course.credits }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Department:</span>
+                        <span class="detail-value">{{ enrollment.course_section.course.department.name }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Section:</span>
+                        <span class="detail-value">{{ enrollment.course_section.section_id }}</span>
+                    </div>
+                </div>
+                
+                <div class="class-description">
+                    <p>{{ enrollment.course_section.course.description|truncatewords:25 }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-classes glassmorphism">
+            <h2>No Past Classes</h2>
+            <p>You haven't completed any courses yet.</p>
+            <a href="{% url 'course_registration' %}" class="btn-primary">Register for Courses</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

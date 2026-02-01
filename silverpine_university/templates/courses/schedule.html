@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Schedule - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/courses.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">My Class Schedule</h1>
+        <p class="page-subtitle">Spring 2026 Semester</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="schedule-container">
+        {% if enrollments %}
+        <!-- Weekly Schedule View -->
+        <div class="schedule-grid glassmorphism">
+            <div class="schedule-header">
+                <h2 class="schedule-title">Weekly Schedule</h2>
+                <p class="schedule-credits">Total Credits: {{ enrollments|length|add:"0" }}</p>
+            </div>
+            
+            <div class="schedule-table">
+                <table class="weekly-schedule">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Time slots from 8:00 AM to 6:00 PM -->
+                        {% for hour in "012345678910" %}
+                        <tr>
+                            <td class="time-cell">{{ hour|add:"8" }}:00</td>
+                            <td class="day-cell monday"></td>
+                            <td class="day-cell tuesday"></td>
+                            <td class="day-cell wednesday"></td>
+                            <td class="day-cell thursday"></td>
+                            <td class="day-cell friday"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Course List -->
+        <div class="schedule-list">
+            <h2 class="list-title">Enrolled Courses</h2>
+            
+            {% for enrollment in enrollments %}
+            <div class="schedule-card glassmorphism">
+                <div class="schedule-card-header">
+                    <h3 class="course-code">{{ enrollment.course_section.course.course_code }}</h3>
+                    <span class="course-credits">{{ enrollment.course_section.course.credits }} Credits</span>
+                </div>
+                <h4 class="course-title">{{ enrollment.course_section.course.title }}</h4>
+                
+                <div class="course-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Professor:</span>
+                        <span class="info-value">{{ enrollment.course_section.professor.get_full_name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Schedule:</span>
+                        <span class="info-value">{{ enrollment.course_section.get_schedule_display }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Location:</span>
+                        <span class="info-value">{{ enrollment.course_section.building }} {{ enrollment.course_section.room_number }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Section:</span>
+                        <span class="info-value">{{ enrollment.course_section.section_id }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% else %}
+        <div class="no-schedule glassmorphism">
+            <h2>No Classes Scheduled</h2>
+            <p>You are not currently enrolled in any courses for this semester.</p>
+            <a href="{% url 'course_registration' %}" class="btn-primary">Register for Courses</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/schedule.js' %}"></script>
+{% endblock %}

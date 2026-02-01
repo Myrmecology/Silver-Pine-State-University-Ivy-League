@@ -1,0 +1,71 @@
+{% load static %}
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-grid">
+            <!-- University Info -->
+            <div class="footer-section">
+                <h3 class="footer-heading">Silver Pine State University</h3>
+                <p class="footer-text">
+                    Excellence in Education Since 1865<br>
+                    Ranked #1 in the Nation
+                </p>
+                <div class="footer-address">
+                    <p>1865 Pine Avenue</p>
+                    <p>Silver Pine, SP 12345</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3 class="footer-heading">Academics</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Programs</a></li>
+                    <li><a href="#">Departments</a></li>
+                    <li><a href="#">Faculty Directory</a></li>
+                    <li><a href="#">Academic Calendar</a></li>
+                    <li><a href="#">Research</a></li>
+                </ul>
+            </div>
+            
+            <!-- Student Resources -->
+            <div class="footer-section">
+                <h3 class="footer-heading">Student Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'student_login' %}">Student Portal</a></li>
+                    <li><a href="#">Library</a></li>
+                    <li><a href="#">Career Services</a></li>
+                    <li><a href="#">Health Services</a></li>
+                    <li><a href="#">Campus Safety</a></li>
+                </ul>
+            </div>
+            
+            <!-- Connect -->
+            <div class="footer-section">
+                <h3 class="footer-heading">Connect</h3>
+                <ul class="footer-links">
+                    <li><a href="#">News & Events</a></li>
+                    <li><a href="#">Alumni</a></li>
+                    <li><a href="#">Give to SPSU</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Visit Campus</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p class="copyright">&copy; 2026 Silver Pine State University. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#">Terms of Use</a>
+                    <span class="separator">|</span>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

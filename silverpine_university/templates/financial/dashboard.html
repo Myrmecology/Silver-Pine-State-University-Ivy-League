@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Financial Aid Dashboard - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/financial.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Financial Aid Dashboard</h1>
+        <p class="page-subtitle">Manage Your Financial Information</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="financial-dashboard">
+        <!-- Account Balance Summary -->
+        <div class="balance-summary glassmorphism">
+            <h2 class="balance-title">Account Balance</h2>
+            <div class="balance-grid">
+                <div class="balance-item">
+                    <span class="balance-label">Total Charged</span>
+                    <span class="balance-amount">${{ financial_account.total_charged }}</span>
+                </div>
+                <div class="balance-item">
+                    <span class="balance-label">Total Paid</span>
+                    <span class="balance-amount paid">${{ financial_account.total_paid }}</span>
+                </div>
+                <div class="balance-item highlight">
+                    <span class="balance-label">Current Balance</span>
+                    <span class="balance-amount {% if financial_account.account_balance > 0 %}due{% else %}paid{% endif %}">
+                        ${{ financial_account.account_balance }}
+                    </span>
+                </div>
+            </div>
+            <div class="account-status">
+                <span class="status-badge status-{{ financial_account.account_status|slugify }}">
+                    {{ financial_account.account_status }}
+                </span>
+            </div>
+        </div>
+        
+        <!-- Financial Aid Packages -->
+        <div class="aid-packages-section">
+            <h2 class="section-title">Financial Aid Packages</h2>
+            
+            {% if aid_packages %}
+            <div class="packages-grid">
+                {% for package in aid_packages %}
+                <div class="package-card glassmorphism">
+                    <div class="package-header">
+                        <h3 class="package-year">{{ package.academic_year }}</h3>
+                        <span class="package-status status-{{ package.status|slugify }}">{{ package.status }}</span>
+                    </div>
+                    
+                    <div class="package-breakdown">
+                        {% if package.grants > 0 %}
+                        <div class="aid-item">
+                            <span class="aid-label">Grants</span>
+                            <span class="aid-amount">${{ package.grants }}</span>
+                        </div>
+                        {% endif %}
+                        
+                        {% if package.scholarships > 0 %}
+                        <div class="aid-item">
+                            <span class="aid-label">Scholarships</span>
+                            <span class="aid-amount">${{ package.scholarships }}</span>
+                        </div>
+                        {% endif %}
+                        
+                        {% if package.loans > 0 %}
+                        <div class="aid-item">
+                            <span class="aid-label">Loans</span>
+                            <span class="aid-amount">${{ package.loans }}</span>
+                        </div>
+                        {% endif %}
+                        
+                        {% if package.work_study > 0 %}
+                        <div class="aid-item">
+                            <span class="aid-label">Work Study</span>
+                            <span class="aid-amount">${{ package.work_study }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="package-total">
+                        <span class="total-label">Total Aid</span>
+                        <span class="total-amount">${{ package.total_aid }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-packages glassmorphism">
+                <p>No financial aid packages available.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Recent Payments -->
+        <div class="payments-section">
+            <h2 class="section-title">Recent Payments</h2>
+            
+            {% if recent_payments %}
+            <div class="payments-list glassmorphism">
+                {% for payment in recent_payments %}
+                <div class="payment-item">
+                    <div class="payment-info">
+                        <span class="payment-date">{{ payment.payment_date|date:"M d, Y" }}</span>
+                        <span class="payment-method">{{ payment.payment_method }}</span>
+                    </div>
+                    <span class="payment-amount">${{ payment.amount }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{% url 'payment_history' %}" class="btn-view-all">View All Payments</a>
+            {% else %}
+            <div class="no-payments glassmorphism">
+                <p>No payment history available.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Available Scholarships -->
+        <div class="scholarships-section">
+            <h2 class="section-title">Available Scholarships</h2>
+            
+            {% if available_scholarships %}
+            <div class="scholarships-grid">
+                {% for scholarship in available_scholarships|slice:":3" %}
+                <div class="scholarship-card glassmorphism">
+                    <h3 class="scholarship-name">{{ scholarship.name }}</h3>
+                    <p class="scholarship-amount">${{ scholarship.amount }}</p>
+                    <p class="scholarship-type">{{ scholarship.scholarship_type }}</p>
+                    <p class="scholarship-deadline">Deadline: {{ scholarship.application_deadline|date:"M d, Y" }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{% url 'scholarships' %}" class="btn-view-all">View All Scholarships</a>
+            {% else %}
+            <div class="no-scholarships glassmorphism">
+                <p>No scholarships available at this time.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

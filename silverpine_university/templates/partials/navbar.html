@@ -1,0 +1,39 @@
+{% load static %}
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <!-- Logo and University Name -->
+        <div class="navbar-brand">
+            <div class="university-logo">
+                <span class="logo-text">SPSU</span>
+            </div>
+            <div class="navbar-title">
+                <span class="university-name">Silver Pine State University</span>
+            </div>
+        </div>
+        
+        <!-- Navigation Links -->
+        {% if request.session.student_id %}
+        <div class="navbar-menu">
+            <a href="{% url 'student_dashboard' %}" class="nav-link">Dashboard</a>
+            <a href="{% url 'course_catalog' %}" class="nav-link">Course Catalog</a>
+            <a href="{% url 'course_registration' %}" class="nav-link">Registration</a>
+            <a href="{% url 'course_schedule' %}" class="nav-link">Schedule</a>
+            <a href="{% url 'transcript' %}" class="nav-link">Grades</a>
+            <a href="{% url 'financial_dashboard' %}" class="nav-link">Financial Aid</a>
+            <a href="{% url 'academic_calendar' %}" class="nav-link">Calendar</a>
+        </div>
+        
+        <!-- User Section -->
+        <div class="navbar-user">
+            <span class="user-name">{{ request.session.student_name }}</span>
+            <a href="{% url 'student_logout' %}" class="btn-logout">Logout</a>
+        </div>
+        {% else %}
+        <div class="navbar-menu">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="{% url 'student_login' %}" class="btn-nav-login">Student Login</a>
+        </div>
+        {% endif %}
+    </div>
+</nav>

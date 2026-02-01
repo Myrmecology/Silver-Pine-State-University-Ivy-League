@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Academic Calendar - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Academic Calendar</h1>
+        <p class="page-subtitle">Important Dates & Events</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="calendar-container">
+        <!-- Current Semester Info -->
+        {% if current_semester %}
+        <div class="semester-info glassmorphism">
+            <h2 class="semester-name">{{ current_semester.name }}</h2>
+            <div class="semester-dates">
+                <div class="date-item">
+                    <span class="date-label">Semester Dates</span>
+                    <span class="date-value">{{ current_semester.start_date|date:"M d" }} - {{ current_semester.end_date|date:"M d, Y" }}</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-label">Registration Period</span>
+                    <span class="date-value">{{ current_semester.registration_start|date:"M d" }} - {{ current_semester.registration_end|date:"M d, Y" }}</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-label">Add/Drop Deadline</span>
+                    <span class="date-value">{{ current_semester.add_drop_deadline|date:"M d, Y" }}</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-label">Final Exams</span>
+                    <span class="date-value">{{ current_semester.final_exams_start|date:"M d" }} - {{ current_semester.final_exams_end|date:"M d, Y" }}</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Upcoming Events -->
+        <div class="upcoming-section">
+            <h2 class="section-title">Upcoming Events</h2>
+            
+            {% if upcoming_events %}
+            <div class="events-list">
+                {% for event in upcoming_events %}
+                <div class="event-card glassmorphism">
+                    <div class="event-date-badge">
+                        <span class="event-month">{{ event.start_date|date:"M" }}</span>
+                        <span class="event-day">{{ event.start_date|date:"d" }}</span>
+                    </div>
+                    
+                    <div class="event-content">
+                        <h3 class="event-title">{{ event.title }}</h3>
+                        <span class="event-type type-{{ event.event_type|slugify }}">{{ event.event_type }}</span>
+                        
+                        {% if event.description %}
+                        <p class="event-description">{{ event.description|truncatewords:20 }}</p>
+                        {% endif %}
+                        
+                        <div class="event-details">
+                            {% if event.is_multiday %}
+                            <span class="event-detail">{{ event.start_date|date:"M d" }} - {{ event.end_date|date:"M d, Y" }}</span>
+                            {% else %}
+                            <span class="event-detail">{{ event.start_date|date:"l, M d, Y" }}</span>
+                            {% endif %}
+                            
+                            {% if not event.all_day %}
+                            <span class="event-detail">{{ event.start_time|time:"g:i A" }} - {{ event.end_time|time:"g:i A" }}</span>
+                            {% endif %}
+                            
+                            {% if event.location %}
+                            <span class="event-detail">📍 {{ event.location }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-events glassmorphism">
+                <p>No upcoming events scheduled.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- University Holidays -->
+        <div class="holidays-section">
+            <h2 class="section-title">University Holidays</h2>
+            
+            {% if holidays %}
+            <div class="holidays-list glassmorphism">
+                {% for holiday in holidays %}
+                <div class="holiday-item">
+                    <div class="holiday-info">
+                        <h4 class="holiday-name">{{ holiday.name }}</h4>
+                        {% if holiday.end_date %}
+                        <span class="holiday-date">{{ holiday.date|date:"M d" }} - {{ holiday.end_date|date:"M d, Y" }}</span>
+                        {% else %}
+                        <span class="holiday-date">{{ holiday.date|date:"l, M d, Y" }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="holiday-status">
+                        {% if holiday.university_closed %}
+                        <span class="status-badge closed">University Closed</span>
+                        {% endif %}
+                        {% if holiday.classes_cancelled %}
+                        <span class="status-badge cancelled">No Classes</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-holidays glassmorphism">
+                <p>No upcoming holidays.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- All Events by Month -->
+        <div class="all-events-section">
+            <h2 class="section-title">All Academic Events</h2>
+            
+            {% if events %}
+            <div class="events-timeline">
+                {% for event in events %}
+                <div class="timeline-event glassmorphism">
+                    <div class="timeline-date">
+                        <span class="timeline-month">{{ event.start_date|date:"M" }}</span>
+                        <span class="timeline-day">{{ event.start_date|date:"d" }}</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">{{ event.title }}</h4>
+                        <span class="timeline-type">{{ event.event_type }}</span>
+                        {% if event.location %}
+                        <p class="timeline-location">{{ event.location }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

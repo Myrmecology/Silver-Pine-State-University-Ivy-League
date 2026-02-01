@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Academic Transcript - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/grades.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Academic Transcript</h1>
+        <p class="page-subtitle">Official Academic Record</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="transcript-container">
+        <!-- Student Info & GPA Summary -->
+        <div class="transcript-summary glassmorphism">
+            <div class="student-info">
+                <h2>{{ student.get_full_name }}</h2>
+                <p>Student ID: {{ student.student_id }}</p>
+                <p>Major: {{ student.major }}</p>
+                {% if student.minor %}
+                <p>Minor: {{ student.minor }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="gpa-summary">
+                <div class="gpa-card">
+                    <h3 class="gpa-value">{{ transcript.cumulative_gpa }}</h3>
+                    <p class="gpa-label">Cumulative GPA</p>
+                </div>
+                <div class="credits-card">
+                    <h3 class="credits-value">{{ transcript.total_credits_earned }}</h3>
+                    <p class="credits-label">Total Credits Earned</p>
+                </div>
+                <div class="standing-card">
+                    <h3 class="standing-value">{{ student.academic_standing }}</h3>
+                    <p class="standing-label">Academic Standing</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Academic History by Semester -->
+        <div class="academic-history">
+            <h2 class="history-title">Academic History</h2>
+            
+            {% for semester, courses in semesters.items %}
+            <div class="semester-section glassmorphism">
+                <div class="semester-header">
+                    <h3 class="semester-name">{{ semester }}</h3>
+                    <div class="semester-stats">
+                        <span class="stat">Credits: {{ courses|length|add:"0" }}</span>
+                    </div>
+                </div>
+                
+                <div class="courses-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Credits</th>
+                                <th>Grade</th>
+                                <th>Professor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enrollment in courses %}
+                            <tr>
+                                <td class="course-code-cell">{{ enrollment.course_section.course.course_code }}</td>
+                                <td class="course-title-cell">{{ enrollment.course_section.course.title }}</td>
+                                <td class="credits-cell">{{ enrollment.course_section.course.credits }}</td>
+                                <td class="grade-cell">
+                                    <span class="grade-badge grade-{{ enrollment.grade }}">{{ enrollment.grade }}</span>
+                                </td>
+                                <td class="professor-cell">{{ enrollment.course_section.professor.get_full_name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-history glassmorphism">
+                <p>No completed courses yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Academic Honors -->
+        {% if transcript.academic_honors %}
+        <div class="honors-section glassmorphism">
+            <h2 class="honors-title">Academic Honors & Awards</h2>
+            <div class="honors-content">
+                {{ transcript.academic_honors|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

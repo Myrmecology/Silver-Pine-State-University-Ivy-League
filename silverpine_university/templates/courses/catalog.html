@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Course Catalog - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/courses.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Course Catalog</h1>
+        <p class="page-subtitle">Browse our comprehensive selection of courses</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="catalog-container">
+        <!-- Filters Section -->
+        <div class="filters-sidebar glassmorphism">
+            <h2 class="filters-title">Filter Courses</h2>
+            
+            <form method="GET" class="filters-form">
+                <!-- Search -->
+                <div class="filter-group">
+                    <label class="filter-label">Search</label>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        class="filter-input" 
+                        placeholder="Course code or title..."
+                        value="{{ search_query }}"
+                    >
+                </div>
+                
+                <!-- Department -->
+                <div class="filter-group">
+                    <label class="filter-label">Department</label>
+                    <select name="department" class="filter-select">
+                        <option value="">All Departments</option>
+                        {% for dept in departments %}
+                        <option value="{{ dept.code }}" {% if selected_department == dept.code %}selected{% endif %}>
+                            {{ dept.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Level -->
+                <div class="filter-group">
+                    <label class="filter-label">Level</label>
+                    <select name="level" class="filter-select">
+                        <option value="">All Levels</option>
+                        <option value="Undergraduate" {% if selected_level == 'Undergraduate' %}selected{% endif %}>Undergraduate</option>
+                        <option value="Graduate" {% if selected_level == 'Graduate' %}selected{% endif %}>Graduate</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-filter">Apply Filters</button>
+                <a href="{% url 'course_catalog' %}" class="btn-clear">Clear All</a>
+            </form>
+        </div>
+        
+        <!-- Courses Grid -->
+        <div class="courses-content">
+            <div class="courses-header">
+                <p class="courses-count">{{ courses.count }} course{{ courses.count|pluralize }} found</p>
+            </div>
+            
+            <div class="courses-grid">
+                {% for course in courses %}
+                <div class="course-card glassmorphism">
+                    <div class="course-header">
+                        <h3 class="course-code">{{ course.course_code }}</h3>
+                        <span class="course-credits">{{ course.credits }} Credits</span>
+                    </div>
+                    <h4 class="course-title">{{ course.title }}</h4>
+                    <p class="course-department">{{ course.department.name }}</p>
+                    <p class="course-description">{{ course.description|truncatewords:30 }}</p>
+                    
+                    {% if course.prerequisites %}
+                    <div class="course-prerequisites">
+                        <strong>Prerequisites:</strong> {{ course.prerequisites|truncatewords:15 }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="course-footer">
+                        <span class="course-level">{{ course.level }}</span>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="no-results">
+                    <p>No courses found matching your criteria.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

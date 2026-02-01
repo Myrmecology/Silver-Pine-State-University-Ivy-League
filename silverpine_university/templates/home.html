@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Silver Pine State University{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Three.js Background Canvas -->
+<canvas id="three-canvas"></canvas>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="university-crest">
+            <div class="crest-shield">
+                <span class="crest-text">SPSU</span>
+            </div>
+        </div>
+        <h1 class="hero-title">Silver Pine State University</h1>
+        <p class="hero-subtitle">Excellence in Education Since 1865</p>
+        <p class="hero-tagline">Ranked #1 in the Nation</p>
+        <div class="hero-actions">
+            <a href="{% url 'student_login' %}" class="btn-primary-hero">Student Portal</a>
+        </div>
+    </div>
+</div>
+
+<!-- Welcome Section -->
+<section class="welcome-section">
+    <div class="container">
+        <div class="welcome-content">
+            <h2 class="section-title">Welcome to Silver Pine</h2>
+            <p class="section-description">
+                At Silver Pine State University, we cultivate the leaders, innovators, and scholars of tomorrow. 
+                Our commitment to academic excellence, groundbreaking research, and community engagement has 
+                established us as the premier institution of higher learning in the nation.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 class="stat-number">#1</h3>
+                    <p class="stat-label">National Ranking</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="stat-number">12,000+</h3>
+                    <p class="stat-label">Students</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="stat-number">98%</h3>
+                    <p class="stat-label">Graduate Success Rate</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="stat-number">150+</h3>
+                    <p class="stat-label">Programs of Study</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Links Section -->
+<section class="quick-links-section">
+    <div class="container">
+        <h2 class="section-title">Student Resources</h2>
+        <div class="links-grid">
+            <a href="{% url 'student_login' %}" class="link-card">
+                <div class="link-icon">🎓</div>
+                <h3>Student Portal</h3>
+                <p>Access your courses, grades, and registration</p>
+            </a>
+            <a href="#" class="link-card">
+                <div class="link-icon">📚</div>
+                <h3>Library</h3>
+                <p>Research databases and academic resources</p>
+            </a>
+            <a href="#" class="link-card">
+                <div class="link-icon">💼</div>
+                <h3>Career Services</h3>
+                <p>Internships and job placement assistance</p>
+            </a>
+            <a href="#" class="link-card">
+                <div class="link-icon">🏛️</div>
+                <h3>Campus Life</h3>
+                <p>Events, clubs, and student organizations</p>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/three-scene.js' %}"></script>
+{% endblock %}
