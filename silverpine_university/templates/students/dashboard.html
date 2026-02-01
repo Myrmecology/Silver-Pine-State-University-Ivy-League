@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Student Dashboard - Silver Pine State University{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Welcome, {{ student.first_name }}!</h1>
+        <p class="page-subtitle">Student Portal Dashboard</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="dashboard-container">
+        <!-- Student Quick Info Card -->
+        <div class="student-quick-info glassmorphism">
+            <div class="quick-info-header">
+                <h2>Student Information</h2>
+            </div>
+            <div class="quick-info-grid">
+                <div class="info-box">
+                    <span class="info-label">Student ID</span>
+                    <span class="info-value">{{ student.student_id }}</span>
+                </div>
+                <div class="info-box">
+                    <span class="info-label">Major</span>
+                    <span class="info-value">{{ student.major }}</span>
+                </div>
+                <div class="info-box">
+                    <span class="info-label">Academic Year</span>
+                    <span class="info-value">{{ student.academic_year }}</span>
+                </div>
+                <div class="info-box">
+                    <span class="info-label">GPA</span>
+                    <span class="info-value gpa-highlight">{{ student.gpa }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions Grid -->
+        <div class="quick-actions-section">
+            <h2 class="section-heading">Quick Actions</h2>
+            <div class="actions-grid">
+                <a href="{% url 'course_catalog' %}" class="action-card glassmorphism">
+                    <div class="action-icon">📚</div>
+                    <h3>Course Catalog</h3>
+                    <p>Browse available courses</p>
+                </a>
+                
+                <a href="{% url 'course_registration' %}" class="action-card glassmorphism">
+                    <div class="action-icon">✏️</div>
+                    <h3>Register for Classes</h3>
+                    <p>Enroll in courses</p>
+                </a>
+                
+                <a href="{% url 'course_schedule' %}" class="action-card glassmorphism">
+                    <div class="action-icon">📅</div>
+                    <h3>View Schedule</h3>
+                    <p>See your class schedule</p>
+                </a>
+                
+                <a href="{% url 'transcript' %}" class="action-card glassmorphism">
+                    <div class="action-icon">🎓</div>
+                    <h3>Grades & Transcript</h3>
+                    <p>View academic record</p>
+                </a>
+                
+                <a href="{% url 'financial_dashboard' %}" class="action-card glassmorphism">
+                    <div class="action-icon">💰</div>
+                    <h3>Financial Aid</h3>
+                    <p>Manage finances</p>
+                </a>
+                
+                <a href="{% url 'academic_calendar' %}" class="action-card glassmorphism">
+                    <div class="action-icon">📆</div>
+                    <h3>Academic Calendar</h3>
+                    <p>Important dates</p>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Academic Standing -->
+        <div class="academic-standing-card glassmorphism">
+            <h2 class="section-heading">Academic Standing</h2>
+            <div class="standing-content">
+                <div class="standing-badge">
+                    <span class="standing-status status-{{ student.academic_standing|slugify }}">
+                        {{ student.academic_standing }}
+                    </span>
+                </div>
+                <div class="standing-details">
+                    <p><strong>Total Credits:</strong> {{ student.total_credits }}</p>
+                    <p><strong>Expected Graduation:</strong> {{ student.expected_graduation|date:"M Y" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.dashboard-container {
+    margin-top: 2rem;
+    display: grid;
+    gap: 2rem;
+}
+
+.student-quick-info {
+    padding: 2rem;
+}
+
+.quick-info-header h2 {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+}
+
+.quick-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(26, 77, 46, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-green);
+}
+
+.info-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.info-value {
+    font-size: 1.2rem;
+    color: var(--primary-green);
+    font-weight: 700;
+}
+
+.gpa-highlight {
+    font-size: 2rem !important;
+    font-family: 'Playfair Display', serif;
+}
+
+.quick-actions-section {
+    margin: 2rem 0;
+}
+
+.section-heading {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.action-card {
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.action-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.action-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.action-card h3 {
+    font-size: 1.3rem;
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+}
+
+.action-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.academic-standing-card {
+    padding: 2rem;
+}
+
+.standing-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.standing-badge {
+    flex-shrink: 0;
+}
+
+.standing-status {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.status-good-standing {
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+.status-deans-list,
+.status-presidents-list {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: var(--primary-black);
+}
+
+.status-academic-probation {
+    background: #ffc107;
+    color: var(--primary-black);
+}
+
+.standing-details p {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+</style>
+{% endblock %}

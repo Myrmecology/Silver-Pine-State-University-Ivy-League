@@ -1,0 +1,402 @@
+/* ===== FINANCIAL AID STYLES ===== */
+
+/* Financial Dashboard */
+.financial-dashboard {
+    margin-top: 2rem;
+}
+
+/* Balance Summary */
+.balance-summary {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.balance-title {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.balance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.balance-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background: rgba(26, 77, 46, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-green);
+}
+
+.balance-item.highlight {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+    border: none;
+}
+
+.balance-item.highlight .balance-label,
+.balance-item.highlight .balance-amount {
+    color: var(--white);
+}
+
+.balance-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.balance-amount {
+    font-size: 2rem;
+    color: var(--primary-green);
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+.balance-amount.paid {
+    color: #28a745;
+}
+
+.balance-amount.due {
+    color: #dc3545;
+}
+
+.account-status {
+    text-align: center;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.status-current {
+    background: #28a745;
+    color: var(--white);
+}
+
+.status-past-due {
+    background: #dc3545;
+    color: var(--white);
+}
+
+.status-hold {
+    background: #ffc107;
+    color: var(--primary-black);
+}
+
+.status-paid-in-full {
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+/* Aid Packages Section */
+.aid-packages-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Package Card */
+.package-card {
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.package-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.package-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.package-year {
+    font-size: 1.5rem;
+    color: var(--primary-green);
+}
+
+.package-status {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #ffc107;
+    color: var(--primary-black);
+}
+
+.status-awarded {
+    background: #17a2b8;
+    color: var(--white);
+}
+
+.status-accepted {
+    background: #28a745;
+    color: var(--white);
+}
+
+.status-disbursed {
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+.status-declined {
+    background: #dc3545;
+    color: var(--white);
+}
+
+.package-breakdown {
+    margin-bottom: 1.5rem;
+}
+
+.aid-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.aid-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.aid-amount {
+    font-weight: 700;
+    color: var(--primary-green);
+    font-size: 1.1rem;
+}
+
+.package-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(26, 77, 46, 0.1);
+    border-radius: 6px;
+    margin-top: 1rem;
+}
+
+.total-label {
+    font-weight: 700;
+    color: var(--primary-green);
+    font-size: 1.1rem;
+}
+
+.total-amount {
+    font-weight: 700;
+    color: var(--primary-green);
+    font-size: 1.3rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.no-packages {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+/* Payments Section */
+.payments-section {
+    margin-bottom: 3rem;
+}
+
+.payments-list {
+    padding: 1.5rem;
+}
+
+.payment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.payment-item:last-child {
+    border-bottom: none;
+}
+
+.payment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.payment-date {
+    font-weight: 600;
+    color: var(--primary-green);
+}
+
+.payment-method {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.payment-amount {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    font-family: 'Playfair Display', serif;
+}
+
+.btn-view-all {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 2rem;
+    background: var(--accent-silver);
+    color: var(--primary-green);
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-view-all:hover {
+    background: var(--primary-green);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.no-payments {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+/* Scholarships Section */
+.scholarships-section {
+    margin-bottom: 3rem;
+}
+
+.scholarships-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Scholarship Card */
+.scholarship-card {
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.scholarship-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.scholarship-name {
+    font-size: 1.3rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+.scholarship-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.scholarship-type {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.scholarship-deadline {
+    font-size: 0.85rem;
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.no-scholarships {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+/* Payment History Page */
+.payment-history-container {
+    margin-top: 2rem;
+}
+
+.account-summary {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.history-table {
+    overflow-x: auto;
+}
+
+.history-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table thead {
+    background: rgba(26, 77, 46, 0.1);
+}
+
+.history-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-green);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.history-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .balance-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .packages-grid,
+    .scholarships-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .balance-amount {
+        font-size: 1.5rem;
+    }
+}

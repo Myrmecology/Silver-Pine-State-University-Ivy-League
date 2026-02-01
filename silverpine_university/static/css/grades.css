@@ -1,0 +1,390 @@
+/* ===== GRADES & TRANSCRIPT STYLES ===== */
+
+/* Transcript Container */
+.transcript-container {
+    margin-top: 2rem;
+}
+
+/* Transcript Summary */
+.transcript-summary {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.student-info {
+    margin-bottom: 2rem;
+}
+
+.student-info h2 {
+    font-size: 2rem;
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+}
+
+.student-info p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+/* GPA Summary */
+.gpa-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.gpa-card,
+.credits-card,
+.standing-card {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.gpa-value,
+.credits-value,
+.standing-value {
+    font-size: 2.5rem;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.gpa-label,
+.credits-label,
+.standing-label {
+    color: var(--light-silver);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Academic History */
+.academic-history {
+    margin-top: 2rem;
+}
+
+.history-title {
+    font-size: 2rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+}
+
+.semester-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.semester-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.semester-name {
+    font-size: 1.5rem;
+    color: var(--primary-green);
+}
+
+.semester-stats {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.stat {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Courses Table */
+.courses-table {
+    overflow-x: auto;
+}
+
+.courses-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.courses-table thead {
+    background: rgba(26, 77, 46, 0.1);
+}
+
+.courses-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-green);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.courses-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.course-code-cell {
+    font-weight: 700;
+    color: var(--primary-green);
+}
+
+.grade-cell {
+    text-align: center;
+}
+
+.grade-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* Grade Colors */
+.grade-A {
+    background: #28a745;
+    color: var(--white);
+}
+
+.grade-A- {
+    background: #5cb85c;
+    color: var(--white);
+}
+
+.grade-B\+,
+.grade-B,
+.grade-B- {
+    background: #17a2b8;
+    color: var(--white);
+}
+
+.grade-C\+,
+.grade-C,
+.grade-C- {
+    background: #ffc107;
+    color: var(--primary-black);
+}
+
+.grade-D\+,
+.grade-D {
+    background: #fd7e14;
+    color: var(--white);
+}
+
+.grade-F {
+    background: #dc3545;
+    color: var(--white);
+}
+
+.grade-P {
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+.grade-I,
+.grade-W {
+    background: var(--accent-silver);
+    color: var(--primary-green);
+}
+
+.no-history {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+/* Honors Section */
+.honors-section {
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.honors-title {
+    font-size: 1.5rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+.honors-content {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* Past Classes Container */
+.past-classes-container {
+    margin-top: 2rem;
+}
+
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Class Card */
+.class-card {
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.class-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.class-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.class-code-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.class-code {
+    font-size: 1.3rem;
+    color: var(--primary-green);
+    font-weight: 700;
+}
+
+.class-semester {
+    background: var(--accent-silver);
+    color: var(--primary-green);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.class-grade {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+}
+
+.class-title {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.class-details {
+    margin-bottom: 1rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.class-description {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.class-description p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.no-classes {
+    text-align: center;
+    padding: 3rem;
+}
+
+.no-classes h2 {
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+.no-classes p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* Current Grades View */
+.enrollment-data {
+    margin-bottom: 2rem;
+}
+
+.course-grades-card {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.assignments-list {
+    margin-top: 1rem;
+}
+
+.assignment-item {
+    padding: 1rem;
+    background: rgba(26, 77, 46, 0.05);
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.assignment-info h5 {
+    color: var(--primary-green);
+    margin-bottom: 0.25rem;
+}
+
+.assignment-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+.assignment-score {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary-green);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gpa-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .classes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .courses-table {
+        font-size: 0.85rem;
+    }
+    
+    .courses-table th,
+    .courses-table td {
+        padding: 0.75rem 0.5rem;
+    }
+}
