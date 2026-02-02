@@ -1,5 +1,5 @@
 # Silver Pine State University - Student Portal
-# TO SEE A VIDEO DEMO OF THIS PROJECT PLEASE VISIT: 
+# TO SEE A VIDEO DEMO OF THIS PROJECT PLEASE VISIT: https://www.youtube.com/watch?v=s98uzzpjrAc 
 
 An elite Ivy League university student management system featuring course registration, grade tracking, financial aid management, and academic calendar.
 
