@@ -1,6 +1,13 @@
 # Silver Pine State University - Student Portal
+# TO SEE A VIDEO DEMO OF THIS PROJECT PLEASE VISIT: 
 
 An elite Ivy League university student management system featuring course registration, grade tracking, financial aid management, and academic calendar.
+
+## Spin this up
+- open terminal and type cd silverpine_university
+- Now, open your virtual environment by typing source venv/Scripts/activate inside the terminal
+- Now, type this in the terminal python manage.py runserver
+- Now, open it in another browser with  http://127.0.0.1:8000/
 
 ## Features
 
