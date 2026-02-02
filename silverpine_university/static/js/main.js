@@ -108,25 +108,18 @@ document.querySelectorAll('.course-card, .section-card, .class-card, .event-card
     observer.observe(el);
 });
 
-// Loading state for buttons
-document.querySelectorAll('button[type="submit"]').forEach(button => {
+// Loading state for buttons - FIXED VERSION
+// Loading state for buttons - FIXED VERSION
+document.querySelectorAll('button[type="submit"]:not(.no-processing)').forEach(button => {
     button.addEventListener('click', function(e) {
         if (this.form && !this.form.checkValidity()) {
+            e.preventDefault();
             return;
         }
         
-        this.classList.add('loading');
-        this.disabled = true;
-        
+        // Don't disable - let form submit naturally
         const originalText = this.textContent;
         this.textContent = 'Processing...';
-        
-        // Re-enable after 3 seconds (in case form doesn't redirect)
-        setTimeout(() => {
-            this.classList.remove('loading');
-            this.disabled = false;
-            this.textContent = originalText;
-        }, 3000);
     });
 });
 

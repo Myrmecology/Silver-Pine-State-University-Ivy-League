@@ -69,6 +69,12 @@
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease 0.2s both;
     letter-spacing: 1px;
+    text-shadow: 
+        -2px -2px 0 #c0c0c0,
+        2px -2px 0 #c0c0c0,
+        -2px 2px 0 #c0c0c0,
+        2px 2px 0 #c0c0c0,
+        0 0 20px rgba(192, 192, 192, 0.5);
 }
 
 .hero-subtitle {

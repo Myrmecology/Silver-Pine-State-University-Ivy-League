@@ -93,6 +93,10 @@ class CourseRegistrationView(View):
         action = request.POST.get('action')
         section_id = request.POST.get('section_id')
         
+        print(f"DEBUG: Action = {action}")
+        print(f"DEBUG: Section ID = {section_id}")
+        print(f"DEBUG: Cart = {request.session.get('course_cart', [])}")
+        
         if action == 'add_to_cart':
             cart = request.session.get('course_cart', [])
             if section_id not in cart:
@@ -108,36 +112,45 @@ class CourseRegistrationView(View):
                 messages.success(request, 'Course removed from cart.')
         
         elif action == 'enroll':
+            print("DEBUG: Entering enroll block")
             cart = request.session.get('course_cart', [])
+            print(f"DEBUG: Processing {len(cart)} courses from cart")
+            
             for sec_id in cart:
+                print(f"DEBUG: Processing section {sec_id}")
                 section = get_object_or_404(CourseSection, section_id=sec_id)
                 
                 # Check if already enrolled
                 if Enrollment.objects.filter(student=student, course_section=section).exists():
+                    print(f"DEBUG: Already enrolled in {section.course.title}")
                     messages.warning(request, f'Already enrolled in {section.course.title}')
                     continue
                 
                 # Check capacity
                 if section.is_full():
+                    print(f"DEBUG: {section.course.title} is full")
                     messages.error(request, f'{section.course.title} is full.')
                     continue
                 
                 # Create enrollment
-                Enrollment.objects.create(
+                enrollment = Enrollment.objects.create(
                     student=student,
                     course_section=section,
                     semester=section.semester,
                     status='Enrolled'
                 )
+                print(f"DEBUG: Created enrollment: {enrollment}")
                 
                 # Update enrolled count
                 section.enrolled_count += 1
                 section.save()
+                print(f"DEBUG: Updated seat count for {section.course.title}")
                 
                 messages.success(request, f'Successfully enrolled in {section.course.title}')
             
             # Clear cart
             request.session['course_cart'] = []
+            print("DEBUG: Cart cleared")
         
         return redirect('course_registration')
 

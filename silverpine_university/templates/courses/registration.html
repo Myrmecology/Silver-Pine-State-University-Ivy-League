@@ -48,7 +48,7 @@
                         {% endfor %}
                     </div>
                     
-                    <button type="submit" class="btn-enroll">Enroll in Selected Courses</button>
+                    <button type="submit" class="btn-enroll-simple">Enroll in Selected Courses</button>
                 </form>
                 {% else %}
                 <p class="cart-empty">Your cart is empty. Add courses below to register.</p>
@@ -117,5 +117,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/registration.js' %}"></script>
+<!--<script src="{% static 'js/registration.js' %}"></script>
 {% endblock %}

@@ -53,22 +53,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Enroll button confirmation
-    const enrollButton = document.querySelector('.btn-enroll');
-    if (enrollButton) {
-        enrollButton.addEventListener('click', function(e) {
-            const cartItems = document.querySelectorAll('.cart-item');
-            if (cartItems.length === 0) {
+    // Enroll button confirmation - SIMPLIFIED VERSION
+    const enrollForm = document.querySelector('form input[name="action"][value="enroll"]');
+    if (enrollForm) {
+        const form = enrollForm.closest('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('Your cart is empty. Please add courses before enrolling.');
-                return;
-            }
-            
-            const confirm = window.confirm(`Are you sure you want to enroll in ${cartItems.length} course(s)?`);
-            if (!confirm) {
-                e.preventDefault();
-            }
-        });
+                
+                const cartItems = document.querySelectorAll('.cart-item');
+                if (cartItems.length === 0) {
+                    alert('Your cart is empty. Please add courses before enrolling.');
+                    return false;
+                }
+                
+                const confirmEnroll = window.confirm(`Are you sure you want to enroll in ${cartItems.length} course(s)?`);
+                if (confirmEnroll) {
+                    // Actually submit the form
+                    form.submit();
+                }
+            });
+        }
     }
     
     // Search and filter functionality (if implemented)
